@@ -17,7 +17,6 @@ import com.abiltondias.cursosmc.domain.enums.TipoCliente;
 import com.abiltondias.cursosmc.repositories.CategoriaRepository;
 import com.abiltondias.cursosmc.repositories.CidadesRepository;
 import com.abiltondias.cursosmc.repositories.ClientesRepository;
-import com.abiltondias.cursosmc.repositories.EnderecoRepository;
 import com.abiltondias.cursosmc.repositories.EnderecosRepository;
 import com.abiltondias.cursosmc.repositories.EstadosRepository;
 import com.abiltondias.cursosmc.repositories.ProdutoRepository;

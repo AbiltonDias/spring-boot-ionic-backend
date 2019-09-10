@@ -3,8 +3,6 @@ package com.abiltondias.cursosmc.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.abiltondias.cursosmc.domain.Categoria;
-import com.abiltondias.cursosmc.domain.Cidade;
 import com.abiltondias.cursosmc.domain.Estado;
 
 @Repository

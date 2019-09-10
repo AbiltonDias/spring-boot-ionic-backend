@@ -1,6 +1,5 @@
 package com.abiltondias.cursosmc.domain.enums;
 
-import java.util.Iterator;
 
 public enum TipoCliente {
 	
