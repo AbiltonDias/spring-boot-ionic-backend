@@ -1,5 +1,7 @@
 package com.abiltondias.cursosmc;
 
+import java.text.SimpleDateFormat;
+import java.text.spi.DateFormatSymbolsProvider;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +14,20 @@ import com.abiltondias.cursosmc.domain.Cidade;
 import com.abiltondias.cursosmc.domain.Cliente;
 import com.abiltondias.cursosmc.domain.Endereco;
 import com.abiltondias.cursosmc.domain.Estado;
+import com.abiltondias.cursosmc.domain.Pagamento;
+import com.abiltondias.cursosmc.domain.PagamentoComBoleto;
+import com.abiltondias.cursosmc.domain.PagamentoComCartao;
+import com.abiltondias.cursosmc.domain.Pedido;
 import com.abiltondias.cursosmc.domain.Produto;
+import com.abiltondias.cursosmc.domain.enums.EstadoPagamento;
 import com.abiltondias.cursosmc.domain.enums.TipoCliente;
 import com.abiltondias.cursosmc.repositories.CategoriaRepository;
 import com.abiltondias.cursosmc.repositories.CidadesRepository;
 import com.abiltondias.cursosmc.repositories.ClientesRepository;
 import com.abiltondias.cursosmc.repositories.EnderecosRepository;
 import com.abiltondias.cursosmc.repositories.EstadosRepository;
+import com.abiltondias.cursosmc.repositories.PagamentosRepository;
+import com.abiltondias.cursosmc.repositories.PedidosRepository;
 import com.abiltondias.cursosmc.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -41,6 +50,13 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	ClientesRepository clientesRepository;
+	
+	@Autowired
+	PedidosRepository pedidosRepository;
+	
+	@Autowired
+	PagamentosRepository pagamentosRepository;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -88,6 +104,20 @@ public class CursomcApplication implements CommandLineRunner {
 		cl1.getEnderecos().addAll(Arrays.asList(e1,e2));
 		clientesRepository.saveAll(Arrays.asList(cl1));
 		enderecosRepository.saveAll(Arrays.asList(e1,e2));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2019 10:32"), cl1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 14:02"), cl1, e2);
+		
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1);
+		
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+		ped2.setPagamento(pagto2);
+		
+		cl1.setPedidos(Arrays.asList(ped1,ped2));
+		pedidosRepository.saveAll(Arrays.asList(ped1,ped2));
+		pagamentosRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		
 		
 	}

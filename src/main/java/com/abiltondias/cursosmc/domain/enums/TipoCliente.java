@@ -31,7 +31,7 @@ public enum TipoCliente {
 				return x;
 			}
 		}
-		throw new IllegalArgumentException("Esse id está incorreto! + cod");
+		throw new IllegalArgumentException("Esse id está incorreto!" + cod);
 	}
 	
 	
