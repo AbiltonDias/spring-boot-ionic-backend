@@ -1,7 +1,6 @@
 package com.abiltondias.cursosmc;
 
 import java.text.SimpleDateFormat;
-import java.text.spi.DateFormatSymbolsProvider;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import com.abiltondias.cursosmc.domain.Cidade;
 import com.abiltondias.cursosmc.domain.Cliente;
 import com.abiltondias.cursosmc.domain.Endereco;
 import com.abiltondias.cursosmc.domain.Estado;
+import com.abiltondias.cursosmc.domain.ItemPedido;
 import com.abiltondias.cursosmc.domain.Pagamento;
 import com.abiltondias.cursosmc.domain.PagamentoComBoleto;
 import com.abiltondias.cursosmc.domain.PagamentoComCartao;
@@ -26,6 +26,7 @@ import com.abiltondias.cursosmc.repositories.CidadesRepository;
 import com.abiltondias.cursosmc.repositories.ClientesRepository;
 import com.abiltondias.cursosmc.repositories.EnderecosRepository;
 import com.abiltondias.cursosmc.repositories.EstadosRepository;
+import com.abiltondias.cursosmc.repositories.ItensPedidosRepository;
 import com.abiltondias.cursosmc.repositories.PagamentosRepository;
 import com.abiltondias.cursosmc.repositories.PedidosRepository;
 import com.abiltondias.cursosmc.repositories.ProdutoRepository;
@@ -56,6 +57,9 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	PagamentosRepository pagamentosRepository;
+	
+	@Autowired
+	ItensPedidosRepository itensPedidosRepository;
 	
 	
 	public static void main(String[] args) {
@@ -119,6 +123,18 @@ public class CursomcApplication implements CommandLineRunner {
 		pedidosRepository.saveAll(Arrays.asList(ped1,ped2));
 		pagamentosRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		
+		ItemPedido ip1 = new ItemPedido(p1, ped1, 00.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(p3, ped1, 00.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(p2, ped2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itensPedidosRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 		
 	}
 
