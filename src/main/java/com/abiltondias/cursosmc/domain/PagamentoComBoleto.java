@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.abiltondias.cursosmc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
